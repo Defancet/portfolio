@@ -26,3 +26,7 @@ CLAUDE.md
 
 # Claude Code workspace
 .claude/
+
+# Local Worker secrets
+.dev.vars
+.wrangler

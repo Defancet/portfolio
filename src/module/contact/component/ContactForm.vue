@@ -1,15 +1,13 @@
 <template>
-    <form class="form" :action="endpoint" method="POST" @submit="onSubmit">
+    <form class="form" action="/api/contact" method="POST" @submit="onSubmit">
         <input type="text" name="_honey" style="display: none" tabindex="-1" autocomplete="off" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" :value="nextUrl" />
 
         <contact-field
             v-for="field in FIELDS"
             :key="field.key"
             v-model="form[field.key]"
             :id="field.id"
-            :name="field.name"
+            :name="field.key"
             :placeholder="field.placeholder"
             :maxlength="field.maxlength"
             :type="field.type"
@@ -36,15 +34,12 @@
 
 <script setup lang="ts">
 import ContactField from "./ContactField.vue";
-import Name from "@/app/router/NameEnum";
-import { computed, onBeforeUnmount, reactive, ref } from "vue";
+import { onBeforeUnmount, reactive, ref } from "vue";
 import { createEmptyForm, validateField, type ContactFieldKey } from "@/module/contact/service/Validation";
-import { useRouter } from "vue-router";
 
 interface IFieldDescriptor {
     readonly key: ContactFieldKey;
     readonly id: string;
-    readonly name: string;
     readonly placeholder: string;
     readonly maxlength: number;
     readonly type?: string;
@@ -52,15 +47,14 @@ interface IFieldDescriptor {
 }
 
 const FIELDS: readonly IFieldDescriptor[] = [
-    { key: "name", id: "contact-name", name: "Name", placeholder: "Your Name", maxlength: 50 },
-    { key: "email", id: "contact-email", name: "Email", placeholder: "Your Email", maxlength: 254, type: "email" },
-    { key: "subject", id: "contact-subject", name: "Subject", placeholder: "Subject", maxlength: 100 },
-    { key: "message", id: "contact-message", name: "Message", placeholder: "Message", maxlength: 500, multiline: true },
+    { key: "name", id: "contact-name", placeholder: "Your Name", maxlength: 50 },
+    { key: "email", id: "contact-email", placeholder: "Your Email", maxlength: 254, type: "email" },
+    { key: "subject", id: "contact-subject", placeholder: "Subject", maxlength: 100 },
+    { key: "message", id: "contact-message", placeholder: "Message", maxlength: 500, multiline: true },
 ];
 
 const SUBMIT_ERROR_TIMEOUT = 3000;
 
-const router = useRouter();
 const form = reactive(createEmptyForm());
 const errors = reactive<Record<ContactFieldKey, string | null>>({
     name: null,
@@ -77,12 +71,6 @@ const touched = reactive<Record<ContactFieldKey, boolean>>({
 const showSubmitError = ref(false);
 const sending = ref(false);
 let submitErrorTimer = 0;
-
-const endpoint = import.meta.env.VITE_FORMSUBMIT_ENDPOINT;
-
-const nextUrl = computed(() =>
-    new URL(router.resolve({ name: Name.FORM_SUBMITTED }).href, window.location.origin).toString(),
-);
 
 function validate(key: ContactFieldKey): void {
     touched[key] = true;

@@ -1,8 +1,14 @@
 {
     "name": "portfolio",
     "compatibility_date": "2026-09-18",
+    "main": "src/worker/index.ts",
     "assets": {
         "directory": "./dist/",
-        "not_found_handling": "single-page-application"
+        "not_found_handling": "single-page-application",
+        "run_worker_first": ["/api/*"]
+    },
+    "vars": {
+        "CONTACT_TO": "maksim@kalutski.com",
+        "CONTACT_FROM": "Portfolio <form@send.kalutski.com>"
     }
 }
