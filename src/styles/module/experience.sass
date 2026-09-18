@@ -1,0 +1,146 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.experience
+    +m.section
+
+.experience__content
+    +m.stack(v.$space8)
+
+    +m.mobile
+        gap: v.$space7
+
+.experience__block
+    display: flex
+    flex-direction: column
+    gap: v.$space5
+    width: 100%
+
+    +m.wide
+        column-gap: v.$space7
+        display: grid
+        grid-template-columns: 11rem minmax(0, 1fr)
+
+.experience__body
+    display: flex
+    flex-direction: column
+    gap: v.$space5
+    width: 100%
+
+.experience__title
+    +m.section-heading
+
+.experience__text
+    +m.body-copy
+
+.experience__role
+    display: flex
+    flex-direction: column
+    gap: v.$space1
+
+.experience__role-name
+    +m.subsection-heading
+
+.experience__role-meta
+    +m.meta-type
+
+.experience__subtitle
+    color: v.$colorTextStrong
+    font-family: v.$fontBody
+    font-size: 1.25rem
+    font-weight: v.$weightBlack
+    letter-spacing: v.$trackingHeading
+    line-height: 1.15
+    text-transform: lowercase
+
+    +m.wide
+        align-self: start
+        position: sticky
+        top: v.$space8
+
+.experience__list
+    display: flex
+    flex-direction: column
+    gap: v.$space5
+    width: 100%
+
+.experience__item
+    +m.body-copy
+    border-block-start: 1px solid v.$colorHairline
+    padding-block-start: v.$space4
+
+.experience__lead
+    color: v.$colorBlack
+    font-weight: v.$weightBlack
+
+.experience__projects
+    display: grid
+    gap: v.$space6
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr))
+    width: 100%
+
+    +m.mobile
+        grid-template-columns: 1fr
+
+.experience__project
+    border-block-start: 1px solid v.$colorHairline
+    display: flex
+    flex-direction: column
+    gap: v.$space2
+    padding-block-start: v.$space4
+
+.experience__project-context
+    +m.meta-type
+
+.experience__project-name
+    +m.subsection-heading
+
+.experience__project-text
+    +m.body-copy
+
+.experience__project-links
+    display: flex
+    flex-wrap: wrap
+    gap: v.$space4
+
+.experience__project-link
+    align-items: center
+    color: v.$colorBlack
+    display: inline-flex
+    font-family: v.$fontBody
+    font-size: 1rem
+    font-weight: v.$weightMedium
+    gap: v.$space1
+    letter-spacing: v.$trackingBody
+    line-height: v.$leadingControl
+    transition: color var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-micro)
+
+    +m.pressable(0.97)
+
+    span
+        text-decoration: underline
+        text-decoration-thickness: 1px
+        text-underline-offset: 0.2em
+        transition: text-decoration-thickness var(--duration-micro) var(--ease-micro)
+
+    svg
+        block-size: 0.875em
+        fill: none
+        flex: none
+        inline-size: 0.875em
+        stroke: currentColor
+        stroke-linecap: round
+        stroke-linejoin: round
+        stroke-width: 1.5
+        transition: transform var(--duration-sheet) var(--ease-sheet)
+
+    &:hover,
+    &:focus-visible
+        color: v.$colorText
+
+    &:hover span,
+    &:focus-visible span
+        text-decoration-thickness: 2px
+
+    &:hover svg
+        transform: translate(0.1em, -0.1em)

@@ -1,0 +1,59 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.about
+    +m.section
+    overflow-x: clip
+    position: relative
+
+.about__content
+    +m.stack
+
+.about__title
+    +m.section-heading
+
+.about__text
+    +m.body-copy
+
+.about__prop
+    display: block
+    position: absolute
+    user-select: none
+
+.about__prop-image
+    display: block
+    height: auto
+    width: 100%
+
+.about__prop--car
+    left: calc(max(#{v.$sectionPadding}, (100% - #{v.$contentMaxWidth}) / 2) + 16rem)
+    top: 4.5rem
+    transform: rotate(19deg)
+    width: clamp(10rem, 20vw, 18rem)
+
+.about__prop--car .about__prop-image
+    transform: scaleX(-1)
+
+.about__prop--record
+    bottom: v.$space5
+    right: 27%
+    transform: rotate(-9deg)
+    width: clamp(9rem, 18vw, 16rem)
+
+.about__prop--controller
+    bottom: v.$space8
+    left: 8%
+    transform: rotate(-16deg)
+    width: clamp(6.5rem, 11vw, 10rem)
+
+@media only screen and (max-height: 55rem), only screen and (max-width: v.$breakpointMobile)
+    .about__prop
+        display: none
+
+.about__prop--physics
+    +m.grabbable
+    bottom: auto
+    right: auto
+
+.about__prop--held
+    +m.lifted-outline

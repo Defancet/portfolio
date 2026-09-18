@@ -1,0 +1,53 @@
+@use "variables" as v
+
+@font-face
+    font-display: swap
+    font-family: "Visuelt Pro"
+    font-weight: v.$weightRegular
+    src: url("@/assets/fonts/VisueltPro-Regular.woff2") format("woff2")
+
+@font-face
+    font-display: swap
+    font-family: "Visuelt Pro"
+    font-weight: v.$weightMedium
+    src: url("@/assets/fonts/VisueltPro-Medium.woff2") format("woff2")
+
+@font-face
+    font-display: swap
+    font-family: "Visuelt Pro"
+    font-weight: v.$weightBlack
+    src: url("@/assets/fonts/VisueltPro-Black.woff2") format("woff2")
+
+*
+    -webkit-tap-highlight-color: transparent
+    box-sizing: border-box
+    list-style: none
+    margin: 0
+    padding: 0
+    text-decoration: none
+
+html
+    -webkit-text-size-adjust: 100%
+
+body
+    background: v.$colorWhite
+    color: v.$colorBlack
+    font-family: v.$fontBody
+    font-weight: v.$weightRegular
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
+
+body.no-scroll
+    overflow: hidden
+
+main
+    min-height: 100vh
+    min-height: 100svh
+
+::selection
+    background: v.$colorBlack
+    color: v.$colorWhite
+
+:focus-visible
+    outline: 2px solid currentColor
+    outline-offset: 3px

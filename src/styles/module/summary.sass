@@ -1,0 +1,15 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.summary
+    +m.section
+    background-color: v.$colorSurface
+
+.summary__content
+    +m.stack
+
+.summary__title
+    +m.section-heading
+
+.summary__intro
+    +m.body-copy

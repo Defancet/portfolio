@@ -1,0 +1,26 @@
+@use "../variables" as v
+
+.route-progress
+    background: v.$colorWhite
+    block-size: 2px
+    inset-block-start: 0
+    inset-inline: 0
+    mix-blend-mode: difference
+    opacity: 0
+    pointer-events: none
+    position: fixed
+    transform: scaleX(1)
+    transform-origin: left
+    transition: opacity var(--duration-micro) var(--ease-out)
+    z-index: v.$zProgress
+
+.route-progress--pending
+    animation: routeProgress var(--duration-progress) var(--ease-out) forwards
+    opacity: 1
+    transition: none
+
+@keyframes routeProgress
+    from
+        transform: scaleX(0.02)
+    to
+        transform: scaleX(0.9)

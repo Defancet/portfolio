@@ -1,0 +1,61 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+$pillBleed: 0.9em
+
+.cta
+    +m.action-type
+    align-items: center
+    background: none
+    border: none
+    color: v.$colorBlack
+    cursor: pointer
+    display: inline-flex
+    gap: v.$space2
+    isolation: isolate
+    padding-block: v.$space3
+    position: relative
+    text-decoration: none
+    text-transform: lowercase
+    transition: color var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-micro)
+
+    +m.pressable(0.97)
+
+    &::before
+        background: v.$colorSurfaceHover
+        border-radius: v.$radiusPill
+        content: ""
+        inset-block: 0
+        inset-inline: -$pillBleed
+        opacity: 0
+        position: absolute
+        transform: scale(0.92)
+        transition: opacity var(--duration-micro) var(--ease-out), transform var(--duration-sheet) var(--ease-sheet)
+        z-index: -1
+
+    svg
+        fill: none
+        flex: none
+        stroke: currentColor
+        stroke-linecap: round
+        stroke-linejoin: round
+        stroke-width: 2
+        transform: translateX(-0.2em)
+        transition: transform var(--duration-sheet) var(--ease-sheet)
+
+    &:hover::before,
+    &:focus-visible::before
+        opacity: 1
+        transform: scale(1)
+
+    &:hover svg
+        transform: translateX(0)
+
+.cta--back
+    flex-direction: row-reverse
+
+    svg
+        transform: rotate(180deg)
+
+    &:hover svg
+        transform: translateX(-0.2em) rotate(180deg)

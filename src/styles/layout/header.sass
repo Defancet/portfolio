@@ -1,0 +1,225 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.header
+    animation: slideDown var(--duration-base) var(--ease-spring) forwards
+    pointer-events: none
+    position: fixed
+    text-transform: lowercase
+    top: 0
+    width: 100%
+    z-index: v.$zNav
+
+    +m.desktop
+        padding-block: v.$space4
+
+@keyframes slideDown
+    from
+        top: -100%
+    to
+        top: 0
+
+.header__nav
+    +m.mobile
+        backdrop-filter: blur(0) saturate(v.$materialSaturate)
+        background-color: rgba(255, 255, 255, 0)
+        inset: 0
+        opacity: 0
+        pointer-events: none
+        position: fixed
+        transform: scale(0.94)
+        transform-origin: top right
+        transition: opacity var(--duration-sheet) var(--ease-out), transform var(--duration-sheet) var(--ease-sheet), backdrop-filter var(--duration-sheet) var(--ease-out), background-color var(--duration-sheet) var(--ease-out)
+        visibility: hidden
+        z-index: v.$zNav
+
+.header__nav--open
+    +m.mobile
+        align-items: center
+        backdrop-filter: blur(v.$materialSheetBlur) saturate(v.$materialSaturate)
+        background-color: v.$materialSheet
+        display: flex
+        justify-content: center
+        opacity: 1
+        pointer-events: auto
+        transform: scale(1)
+        visibility: visible
+
+.header__list
+    align-items: center
+    display: flex
+    gap: v.$space1
+    isolation: isolate
+    justify-content: center
+    margin-inline: auto
+    position: relative
+    width: fit-content
+
+    &::before
+        background: v.$colorBlack
+        border-radius: v.$radiusPill
+        content: ""
+        height: var(--capsule-h, 0)
+        left: 0
+        opacity: 0
+        position: absolute
+        top: 0
+        transform: translate(var(--capsule-x, 0), var(--capsule-y, 0)) scale(var(--capsule-scale, 1))
+        transition: opacity var(--duration-micro) var(--ease-out), transform var(--duration-base) var(--ease-spring), width var(--duration-base) var(--ease-spring), height var(--duration-base) var(--ease-spring)
+        width: var(--capsule-w, 0)
+        will-change: transform, width
+        z-index: -1
+
+    &.header__list--placing::before
+        transition: opacity var(--duration-micro) var(--ease-out)
+
+    &.header__list--appearing::before
+        --capsule-scale: 0.92
+
+    &:has(.header__item--active .header__link:active)::before
+        --capsule-scale: 0.94
+        transition-duration: var(--duration-instant)
+
+    +m.desktop
+        border: 1px solid transparent
+        border-radius: v.$radiusPill
+        padding: v.$space1
+        transition: background-color var(--duration-base) var(--ease-out), backdrop-filter var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out)
+
+    +m.mobile
+        flex-direction: column
+        gap: v.$space2
+
+.header--scrolled .header__list--marked::before,
+.header--light .header__list--marked::before,
+.header__nav--open .header__list--marked::before
+    opacity: 1
+
+.header--scrolled .header__list
+    +m.desktop
+        backdrop-filter: blur(v.$materialChromeBlur) saturate(v.$materialSaturate)
+        background-color: v.$materialChrome
+        border-color: v.$colorHairline
+        box-shadow: v.$highlightGlass, v.$shadowChrome
+
+.header__item
+    +m.mobile
+        opacity: 0
+        transform: translateY(v.$space2)
+        transition: opacity var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-spring)
+
+.header__nav--open .header__item
+    +m.mobile
+        opacity: 1
+        transform: none
+        transition-delay: calc(var(--i, 0) * 45ms)
+
+.header__link
+    color: v.$colorWhite
+    display: block
+    font-family: v.$fontBody
+    font-size: 1.2625rem
+    font-weight: v.$weightMedium
+    letter-spacing: v.$trackingUpper
+    line-height: v.$leadingControl
+    padding-block: v.$space2
+    padding-inline: v.$space4
+    isolation: isolate
+    pointer-events: auto
+    position: relative
+    transition: color var(--duration-base) var(--ease-out), opacity var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-micro)
+
+    +m.pressable(0.94)
+
+    &::before
+        background: v.$colorInkWashHeavy
+        border-radius: v.$radiusPill
+        content: ""
+        inset: 0
+        opacity: 0
+        position: absolute
+        transition: opacity var(--duration-micro) var(--ease-out)
+        z-index: -1
+
+    &:hover::before,
+    &:focus-visible::before
+        opacity: 1
+
+    +m.mobile
+        font-size: 1.5rem
+        min-height: v.$tapTargetMin
+        padding-block: v.$space3
+        padding-inline: v.$space5
+
+.header--scrolled,
+.header--light,
+.header__nav--open
+    .header__link
+        color: v.$colorText
+
+    .header__link::before
+        background: v.$colorInkWash
+
+    .header__link:hover,
+    .header__link:focus-visible
+        color: v.$colorBlack
+
+    .header__item--active .header__link
+        color: v.$colorWhite
+
+        &:hover::before,
+        &:focus-visible::before
+            opacity: 0
+
+.hamburger
+    background: none
+    border: none
+    cursor: pointer
+    display: none
+    pointer-events: auto
+    z-index: v.$zHamburger
+
+    .hamburger__glyph
+        display: block
+        fill: none
+        height: 1.625rem
+        stroke: v.$colorWhite
+        stroke-linecap: round
+        stroke-width: 2
+        transition: stroke var(--duration-base) var(--ease-out)
+        width: 1.625rem
+
+    +m.mobile
+        border: 1px solid transparent
+        border-radius: 50%
+        display: grid
+        height: v.$controlSize
+        place-items: center
+        position: fixed
+        right: v.$space4
+        top: v.$space4
+        transition: background-color var(--duration-base) var(--ease-out), backdrop-filter var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out), transform var(--duration-micro) var(--ease-micro)
+        width: v.$controlSize
+
+        +m.pressable(0.92)
+
+.header--scrolled .hamburger,
+.header--light .hamburger
+    +m.mobile
+        backdrop-filter: blur(v.$materialChromeBlur) saturate(v.$materialSaturate)
+        background-color: v.$materialChrome
+        border-color: v.$colorHairline
+        box-shadow: v.$highlightGlass, v.$shadowChrome
+
+.header--scrolled .hamburger,
+.header--light .hamburger,
+.hamburger--open
+    .hamburger__glyph
+        stroke: v.$colorBlack
+
+.header .hamburger--open
+    +m.mobile
+        backdrop-filter: none
+        background-color: transparent
+        border-color: transparent
+        box-shadow: none

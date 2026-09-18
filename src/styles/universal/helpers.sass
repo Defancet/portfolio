@@ -1,0 +1,23 @@
+@use "../variables" as v
+
+.vhide
+    border: 0
+    clip-path: inset(50%)
+    height: 1px
+    overflow: hidden
+    position: absolute
+    white-space: nowrap
+    width: 1px
+
+.reveal
+    opacity: 0
+    transform: translateY(v.$space5)
+    transition: opacity var(--duration-reveal) var(--ease-out), transform var(--duration-reveal) var(--ease-reveal)
+    visibility: hidden
+    will-change: opacity, transform
+
+.reveal--visible
+    opacity: 1
+    transform: none
+    visibility: visible
+    will-change: auto

@@ -1,0 +1,104 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+@media (prefers-reduced-motion: reduce)
+    .reveal
+        opacity: 1
+        transform: none
+        visibility: visible
+
+    .hero
+        background-attachment: scroll
+
+    .hero__arrow .hero__chevron,
+    .hero__name-part
+        animation: none
+
+    .header
+        animation: none
+
+    .header__nav,
+    .header__nav--open,
+    .header__item,
+    .header__nav--open .header__item,
+    .scroll-up,
+    .scroll-up--visible
+        transform: none
+        transition-delay: 0s
+
+    .header__list::before
+        transition: opacity var(--duration-micro) var(--ease-out)
+
+    .form__submit--sending .form__send,
+    .form__submit--sending span
+        animation-delay: 0s
+        animation-name: sendFade
+
+    .route-progress--pending
+        animation: none
+        transform: scaleX(0.4)
+
+@media (prefers-reduced-transparency: reduce), (prefers-contrast: more)
+    .header__link::before
+        background: v.$colorTextStrong
+
+    .header--scrolled,
+    .header--light,
+    .header__nav--open
+        .header__link::before
+            background: v.$colorSurfaceHover
+
+    .header--scrolled .header__list
+        +m.desktop
+            backdrop-filter: none
+            background: v.$colorWhite
+            box-shadow: none
+
+    .header__nav--open
+        +m.mobile
+            backdrop-filter: none
+            background: v.$colorWhite
+
+    .header--scrolled .hamburger,
+    .header--light .hamburger
+        +m.mobile
+            backdrop-filter: none
+            background-color: v.$colorWhite
+            box-shadow: none
+
+@media (prefers-contrast: more)
+    .header--scrolled .header__list
+        +m.desktop
+            border-color: v.$colorBlack
+
+    .header--scrolled,
+    .header--light,
+    .header__nav--open
+        .header__link
+            color: v.$colorTextStrong
+
+    .header--scrolled .hamburger,
+    .header--light .hamburger
+        +m.mobile
+            border: 1px solid v.$colorBlack
+
+    .hero::before
+        background: rgba(0, 0, 0, 0.55)
+
+    .form__input
+        border-bottom-color: v.$colorBlack
+
+    .skills__item
+        color: v.$colorBlack
+
+    .social-links a,
+    .social-links li:not(:last-child)::after
+        color: v.$colorTextStrong
+
+    .experience__item,
+    .experience__project
+        border-block-start-color: v.$colorBlack
+
+    .experience__role-meta,
+    .experience__project-context
+        color: v.$colorTextStrong

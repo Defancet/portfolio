@@ -1,0 +1,124 @@
+@use "variables" as v
+
+=mobile
+    @media only screen and (max-width: v.$breakpointMobile)
+        @content
+
+=mobile-small
+    @media only screen and (max-width: v.$breakpointMobileSmall)
+        @content
+
+=tablet
+    @media only screen and (min-width: v.$breakpointMobile + 1) and (max-width: v.$breakpointTablet)
+        @content
+
+=desktop
+    @media only screen and (min-width: v.$breakpointMobile + 1)
+        @content
+
+=wide
+    @media only screen and (min-width: v.$breakpointTablet + 1)
+        @content
+
+=pressable($scale: 0.97)
+    &:active
+        transform: scale($scale)
+        transition-duration: var(--duration-instant)
+
+=grabbable
+    cursor: grab
+    left: 0
+    position: absolute
+    touch-action: pan-y
+    top: 0
+    transition: box-shadow var(--duration-micro) var(--ease-micro), filter var(--duration-micro) var(--ease-micro)
+    user-select: none
+    will-change: transform
+
+=lifted
+    box-shadow: v.$shadowLift
+    cursor: grabbing
+    z-index: 2
+
+=lifted-outline
+    cursor: grabbing
+    filter: drop-shadow(v.$shadowLift)
+    z-index: 2
+
+=section
+    align-items: center
+    box-sizing: border-box
+    display: flex
+    justify-content: center
+    min-height: 100vh
+    min-height: 100svh
+    padding: v.$sectionPadding
+    width: 100%
+
+    +tablet
+        padding: v.$sectionPaddingTablet
+
+    +mobile
+        padding: v.$sectionPaddingMobile
+
+=stack($gap: v.$space6)
+    align-items: flex-start
+    box-sizing: border-box
+    display: flex
+    flex-direction: column
+    gap: $gap
+    max-width: v.$contentMaxWidth
+    width: 100%
+
+=display-type
+    font-family: v.$fontDisplay
+    font-size: clamp(1.75rem, 7vw, 7.5rem)
+    letter-spacing: v.$trackingDisplay
+    line-height: 0.92
+
+=title-type
+    font-family: v.$fontBody
+    font-size: clamp(2.25rem, 5.5vw, 4.5rem)
+    font-weight: v.$weightBlack
+    letter-spacing: v.$trackingTitle
+    line-height: 1
+
+=section-heading
+    font-family: v.$fontBody
+    font-size: clamp(2.4rem, 4vw, 3rem)
+    font-weight: v.$weightBlack
+    letter-spacing: v.$trackingHeading
+    line-height: 1.05
+    text-transform: lowercase
+
+=body-copy
+    color: v.$colorText
+    font-family: v.$fontBody
+    font-size: clamp(1rem, 1.05vw, 1.1rem)
+    font-weight: v.$weightRegular
+    letter-spacing: v.$trackingBody
+    line-height: 1.65
+    max-width: 68ch
+
+=subsection-heading
+    font-family: v.$fontBody
+    font-size: clamp(1.5rem, 2.2vw, 2rem)
+    font-weight: v.$weightBlack
+    letter-spacing: v.$trackingHeading
+    line-height: 1.15
+
+=action-type($size: clamp(1.3rem, 1.6vw, 1.6rem))
+    font-family: v.$fontBody
+    font-size: $size
+    font-weight: v.$weightBlack
+    letter-spacing: v.$trackingHeading
+    line-height: v.$leadingControl
+
+=meta-type
+    color: v.$colorTextMuted
+    font-family: v.$fontBody
+    font-size: 0.875rem
+    font-weight: v.$weightMedium
+    letter-spacing: v.$trackingUpperSmall
+    line-height: 1.4
+    text-transform: uppercase

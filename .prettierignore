@@ -1,0 +1,5 @@
+dist
+node_modules
+
+# Prettier has no parser for the indented .sass syntax — leave the stylesheets alone.
+*.sass

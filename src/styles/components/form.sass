@@ -1,0 +1,150 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.form
+    align-items: flex-end
+    display: flex
+    flex-direction: column
+    gap: v.$space6
+    max-width: v.$contentMaxWidth
+    position: relative
+    width: 100%
+
+.form__group
+    display: grid
+    gap: v.$space1
+    position: relative
+    width: 100%
+
+.form__message
+    color: v.$colorError
+    font-family: v.$fontBody
+    font-size: 0.875rem
+    font-weight: v.$weightRegular
+    justify-self: start
+    letter-spacing: v.$trackingBody
+
+.form__message--valid
+    color: v.$colorSuccess
+
+.form__check
+    fill: none
+    height: 1.125rem
+    stroke: currentColor
+    stroke-linecap: round
+    stroke-linejoin: round
+    stroke-width: 1.8
+    width: 1.125rem
+
+.form__input
+    background: transparent
+    border: 0
+    border-bottom: 1px solid v.$colorInputBorder
+    color: v.$colorInputText
+    font-family: v.$fontBody
+    font-size: 1.0625rem
+    font-weight: v.$weightRegular
+    line-height: v.$leadingControl
+    outline: 0
+    padding-block: v.$space3
+    transition: border-color var(--duration-micro) var(--ease-out), box-shadow var(--duration-micro) var(--ease-out), background-color var(--duration-micro) var(--ease-out)
+    width: 100%
+
+    &:focus
+        border-bottom-color: v.$colorBlack
+
+    &:focus-visible
+        box-shadow: 0 1px 0 0 v.$colorBlack
+        outline: none
+
+    &::placeholder
+        color: v.$colorTextMuted
+
+.form__input--valid
+    background-color: v.$colorValidBackground
+
+textarea.form__input
+    resize: none
+
+.form__actions
+    align-items: center
+    display: flex
+    gap: v.$space5
+    justify-content: space-between
+    width: 100%
+
+    +m.mobile-small
+        flex-direction: column-reverse
+        gap: v.$space4
+
+.form__submit
+    +m.action-type(clamp(1rem, 1.1vw, 1.15rem))
+    align-items: center
+    background: v.$colorBlack
+    border: none
+    color: v.$colorWhite
+    cursor: pointer
+    display: inline-flex
+    gap: v.$space2
+    isolation: isolate
+    justify-content: center
+    overflow: hidden
+    padding-block: v.$space5
+    padding-inline: v.$space7
+    position: relative
+    text-transform: lowercase
+    transition: color var(--duration-base) var(--ease-out), transform var(--duration-micro) var(--ease-micro)
+
+    +m.pressable(0.97)
+
+    &::before
+        background: v.$colorWhite
+        border: 1px solid v.$colorBlack
+        bottom: 0
+        content: ""
+        left: 0
+        opacity: 0
+        position: absolute
+        right: 100%
+        top: 0
+        transition: right var(--duration-base) var(--ease-out), opacity var(--duration-micro) var(--ease-out)
+        z-index: -1
+
+    &:hover,
+    &:focus-visible
+        color: v.$colorBlack
+
+        &::before
+            opacity: 1
+            right: 0
+
+    .form__send
+        fill: currentColor
+        height: v.$space5
+        width: v.$space5
+
+    &--sending .form__send
+        animation: sendOff var(--duration-base) var(--ease-sheet) forwards
+
+    &--sending span
+        animation: sendOff var(--duration-base) var(--ease-sheet) var(--duration-instant) forwards
+
+    +m.mobile-small
+        min-height: v.$space8
+        padding-block: v.$space4
+        width: 100%
+
+@keyframes sendOff
+    0%
+        opacity: 1
+        transform: translateX(0)
+    18%
+        opacity: 1
+        transform: translateX(-0.25rem)
+    100%
+        opacity: 0
+        transform: translateX(v.$space8)
+
+@keyframes sendFade
+    to
+        opacity: 0

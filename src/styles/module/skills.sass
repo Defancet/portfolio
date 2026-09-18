@@ -1,0 +1,41 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.skills
+    +m.section
+    overflow-x: clip
+    position: relative
+
+.skills__content
+    +m.stack
+
+.skills__title
+    +m.section-heading
+
+.skills__intro
+    +m.body-copy
+    max-width: 62ch
+
+.skills__list
+    display: flex
+    flex-wrap: wrap
+    gap: v.$space3
+    width: 100%
+
+.skills__item
+    background: v.$colorBlack
+    color: v.$colorWhite
+    font-family: v.$fontBody
+    font-size: clamp(1rem, 1.05vw, 1.1rem)
+    font-weight: v.$weightMedium
+    letter-spacing: v.$trackingBody
+    line-height: v.$leadingControl
+    padding-block: v.$space3
+    padding-inline: v.$space4
+
+.skills__item--physics
+    +m.grabbable
+    z-index: 1
+
+.skills__item--held
+    +m.lifted

@@ -1,0 +1,48 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.scroll-up
+    align-items: center
+    background: transparent
+    border: none
+    bottom: v.$space6
+    color: v.$colorWhite
+    cursor: pointer
+    display: flex
+    flex-direction: column
+    gap: v.$space1
+    mix-blend-mode: difference
+    opacity: 0
+    padding: v.$space3
+    pointer-events: none
+    position: fixed
+    right: v.$space5
+    transform: translateY(v.$space3) scale(0.9)
+    transition: opacity var(--duration-micro) var(--ease-out), transform var(--duration-sheet) var(--ease-sheet)
+    visibility: hidden
+    z-index: v.$zScrollUp
+
+    +m.pressable(0.9)
+
+    +m.mobile-small
+        bottom: v.$space5
+        right: v.$space4
+
+.scroll-up--visible
+    opacity: 1
+    pointer-events: auto
+    transform: none
+    visibility: visible
+
+.scroll-up__icon
+    height: v.$space7
+    width: v.$space5
+
+.scroll-up__label
+    font-family: v.$fontBody
+    font-size: 1.125rem
+    font-weight: v.$weightMedium
+    letter-spacing: v.$trackingUpperSmall
+    text-transform: uppercase
+    transform: rotate(180deg)
+    writing-mode: vertical-lr

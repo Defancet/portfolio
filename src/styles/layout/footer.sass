@@ -1,0 +1,65 @@
+@use "../variables" as v
+@use "../mixins" as m
+
+.footer
+    background: v.$colorBlack
+    min-height: v.$footerMinHeight
+    position: relative
+    width: 100%
+
+.footer__wrapper
+    align-items: center
+    display: grid
+    gap: v.$space5
+    justify-items: center
+    min-height: v.$footerMinHeight
+    padding-block: v.$space6
+    width: 100%
+
+.footer__content
+    align-items: center
+    display: flex
+    gap: v.$space5
+    justify-content: center
+
+    +m.mobile-small
+        flex-direction: column
+        gap: v.$space2
+
+.footer__copyright
+    color: v.$colorWhite
+    font-family: v.$fontBody
+    font-size: 0.8rem
+    font-weight: v.$weightBlack
+    letter-spacing: v.$trackingUpperSmall
+    line-height: v.$leadingControl
+
+.footer__links
+    display: flex
+    gap: v.$space2
+
+    a
+        border-radius: 50%
+        color: v.$colorWhite
+        display: grid
+        height: v.$space6
+        place-items: center
+        transition: color var(--duration-micro) var(--ease-out), background-color var(--duration-micro) var(--ease-out), transform var(--duration-micro) var(--ease-micro)
+        width: v.$space6
+
+        +m.pressable(0.88)
+
+    .brand-mark
+        height: 1.125rem
+        width: 1.125rem
+
+    a:hover,
+    a:focus-visible
+        background-color: v.$colorWhite
+        color: v.$colorBlack
+
+.footer__contact .cta
+    color: v.$colorWhite
+
+    &:hover
+        color: v.$colorBlack
