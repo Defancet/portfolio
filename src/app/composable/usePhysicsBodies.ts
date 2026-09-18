@@ -16,6 +16,7 @@ import {
     type IPhysicsWorld,
     type IPoint,
 } from "@/app/service/PhysicsWorld";
+import { MOBILE_BREAKPOINT } from "@/app/util/breakpoint";
 
 const MEASURE_TIMEOUT = 2000;
 
@@ -25,6 +26,7 @@ interface IPhysicsBodiesOptions {
     readonly activeClass: string;
     readonly heldClass: string;
     readonly flow?: Readonly<Ref<HTMLElement | null>>;
+    readonly desktopOnly?: boolean;
 }
 
 interface ISession {
@@ -35,7 +37,14 @@ interface ISession {
     finger: number | null;
 }
 
-export default function usePhysicsBodies({ area, nodes, activeClass, heldClass, flow }: IPhysicsBodiesOptions): void {
+export default function usePhysicsBodies({
+    area,
+    nodes,
+    activeClass,
+    heldClass,
+    flow,
+    desktopOnly,
+}: IPhysicsBodiesOptions): void {
     let session: ISession | null = null;
     let observer: IntersectionObserver | null = null;
     let sizing: ResizeObserver | null = null;
@@ -43,7 +52,11 @@ export default function usePhysicsBodies({ area, nodes, activeClass, heldClass, 
     let starting = false;
 
     function isSupported(): boolean {
-        return !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+            return false;
+        }
+
+        return !desktopOnly || window.innerWidth > MOBILE_BREAKPOINT;
     }
 
     function unmeasured(): HTMLElement[] {

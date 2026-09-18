@@ -40,5 +40,6 @@ usePhysicsBodies({
     activeClass: "skills__item--physics",
     heldClass: "skills__item--held",
     flow: flowEl,
+    desktopOnly: true,
 });
 </script>
